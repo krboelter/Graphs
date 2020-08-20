@@ -1,6 +1,3 @@
-"""
-Simple graph implementation
-"""
 from util import Stack, Queue  # These may come in handy
 
 class Graph:
@@ -10,45 +7,50 @@ class Graph:
         self.vertices = {}
 
     def add_vertex(self, vertex_id):
-        """
-        Add a vertex to the graph.
-        """
-        pass  # TODO
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
-        """
-        Add a directed edge to the graph.
-        """
-        pass  # TODO
+        # find vertex v1, add v2 to the set
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
-        """
-        Get all neighbors (edges) of a vertex.
-        """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
-        """
-        Print each vertex in breadth-first order
-        beginning from starting_vertex.
-        """
-        pass  # TODO
+        queue = []
+        queue.append(starting_vertex)
+        visited = set()
+
+        while len(queue) > 1:
+            current = queue.pop(0)
+
+            if current not in visited:
+                print(current)
+                visited.add(current)
+
+            queue.append(self.get_neighbors(current))
 
     def dft(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        """
-        pass  # TODO
+        stack = []
+        stack.insert(0, starting_vertex)
+        visited = set()
+
+        while len(stack) > 1:
+            current = queue.pop()
+
+            if current not in visited:
+                print(current)
+                visited.add(current)
+
+            stack.append(self.get_neighbors(current))
 
     def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
+        # depth first, recursive
+        print(starting_vertex, "starting")
+        print(self.get_neighbors(starting_vertex), "RECURSIVE")
 
-        This should be done using recursion.
-        """
-        pass  # TODO
 
     def bfs(self, starting_vertex, destination_vertex):
         """
