@@ -2,10 +2,21 @@ def earliest_ancestor(ancestors, starting_node):
     # create the graph
     graph = {}
     # create all of the vertices
-    for i in range(len(ancestors)):
+    for num_set in ancestors:
         # add edge cases
-        graph[i] = set(ancestors[i])
-    # print(graph)
+        one, two = num_set[0], num_set[1]
+        print(one, two)
+        if one not in graph:
+            graph[one] = [two]
+        else:
+            graph[one].append(two)
+
+        if two not in graph:
+            graph[two] = [one]
+        else:
+            graph[two].append(one)
+
+    print(graph, "graph")
 
     # the stack
     stack = []
@@ -19,28 +30,26 @@ def earliest_ancestor(ancestors, starting_node):
     # at this point, stack has one list w/one item
     while len(stack) != 0:
         current_list = stack.pop() # grab top list
-        print(current_list, "IN FIRST")
         current_vert = current_list.pop() # current vert is last item in list
 
         if current_vert not in visited:
             current_list.append(current_vert) # add item back to list
 
-        visited.add(current_vert) # add to visited
+            visited.add(current_vert) # add to visited
 
-        try:
-            neighbors = graph[current_vert] # grab neighbors
-        except:
-            neighbors = []
+            try: # if there are neighbors
+                neighbors = graph[current_vert] # grab neighbors
+            except: # if there aren't neighbors
+                neighbors = [] # set to empty array
 
-        if len(neighbors) < 1:
-            print(current_list, "IN IF")
-            compare.append(current_list) # if no neighbors, list is done, append to compare
-        else:
-            for num in neighbors:
-                new_list = current_list + [num] # make a new path for each neighbor
-                stack.append(new_list) # add new list to stack to be evaluated
+            if len(neighbors) < 1:
+                compare.append(current_list) # if no neighbors, list is done, append to compare
+            else:
+                for num in neighbors:
+                    new_list = current_list + [num] # make a new path for each neighbor
+                    stack.append(new_list) # add new list to stack to be evaluated
 
-    # print(compare, "COMPARE LIST")
+    print(compare, "COMPARE LIST")
 
 
 # erase below
