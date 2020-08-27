@@ -90,28 +90,6 @@ class SocialGraph:
 
         return visited
 
-        # stack = []
-        # stack.append([user_id])
-        # visited_node = set()
-        # friend_path = []
-        #
-        # while len(stack) > 0:
-        #     current = stack.pop()
-        #     path_to_current = [current]
-        #
-        #     if current not in visited_node:
-        #         visited_node.add(current)
-        #         friend_path.append(current)
-        #
-        #         if len(self.friendships[current]) > 1:
-        #             for i in self.friendships[current]:
-        #                 stack.append(i)
-        #         else:
-        #             visited[current] = friend_path
-
-
-        return visited
-
 
 if __name__ == '__main__':
     sg = SocialGraph()
