@@ -1,4 +1,5 @@
 import random
+from util import Queue
 
 class User:
     def __init__(self, name):
@@ -71,11 +72,44 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+        queue = Queue()
         visited = {}  # Note that this is a dictionary, not a set
 
-        friends_user_1 = self.friendships[user_id]
-        for i in friends_user_1:
-            print(self.friendships[i], "HERE")
+        queue.enqueue([user_id])
+
+        while queue.size() > 0:
+            current_path = queue.dequeue()
+            current_vertex = current_path[-1]
+            if current_vertex not in visited:
+                visited[current_vertex] = current_path
+
+                for neighbor in self.friendships[current_vertex]:
+                    new_path = current_path.copy()
+                    new_path.append(neighbor)
+                    queue.enqueue(new_path)
+
+        return visited
+
+        # stack = []
+        # stack.append([user_id])
+        # visited_node = set()
+        # friend_path = []
+        #
+        # while len(stack) > 0:
+        #     current = stack.pop()
+        #     path_to_current = [current]
+        #
+        #     if current not in visited_node:
+        #         visited_node.add(current)
+        #         friend_path.append(current)
+        #
+        #         if len(self.friendships[current]) > 1:
+        #             for i in self.friendships[current]:
+        #                 stack.append(i)
+        #         else:
+        #             visited[current] = friend_path
+
+
         return visited
 
 
